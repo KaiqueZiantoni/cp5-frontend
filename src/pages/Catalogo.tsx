@@ -1,11 +1,15 @@
 import { useMemo, useState } from 'react'
 import { RecipeCard } from '../components/recipes/RecipeCard'
 import { RecipeFilters } from '../components/recipes/RecipeFilters'
+import { RecipeGridSkeleton } from '../components/recipes/RecipeGridSkeleton'
+import { Button } from '../components/ui/Button'
+import { StateMessage } from '../components/ui/StateMessage'
 import { useRecipes } from '../hooks/useRecipes'
 import styles from './Catalogo.module.css'
 
 export function Catalogo() {
-  const { status, recipes } = useRecipes()
+  const recipesState = useRecipes()
+  const { status, recipes, reload } = recipesState
   const [search, setSearch] = useState('')
   const [cuisine, setCuisine] = useState('')
   /** Favoritos vivem apenas nesta página (estado local, sem persistência). */
@@ -21,6 +25,11 @@ export function Catalogo() {
       }
       return next
     })
+  }
+
+  function clearFilters() {
+    setSearch('')
+    setCuisine('')
   }
 
   /** Lista de culinárias montada a partir dos dados da API, sem valores fixos. */
@@ -39,6 +48,8 @@ export function Catalogo() {
       return matchesName && matchesCuisine
     })
   }, [recipes, search, cuisine])
+
+  const hasActiveFilters = search.trim() !== '' || cuisine !== ''
 
   return (
     <section className="container">
@@ -73,17 +84,44 @@ export function Catalogo() {
         />
       </div>
 
-      <ul className={styles.grid} aria-label="Lista de receitas">
-        {filteredRecipes.map((recipe) => (
-          <li key={recipe.id}>
-            <RecipeCard
-              recipe={recipe}
-              isFavorite={favorites.has(recipe.id)}
-              onToggleFavorite={toggleFavorite}
-            />
-          </li>
-        ))}
-      </ul>
+      {status === 'loading' && <RecipeGridSkeleton />}
+
+      {status === 'error' && (
+        <StateMessage
+          tone="error"
+          title="Não foi possível carregar as receitas"
+          description={recipesState.message}
+          action={<Button onClick={reload}>Tentar novamente</Button>}
+        />
+      )}
+
+      {status === 'success' && filteredRecipes.length === 0 && (
+        <StateMessage
+          title="Nenhuma receita encontrada"
+          description="Tente outro termo de busca ou escolha uma culinária diferente."
+          action={
+            hasActiveFilters ? (
+              <Button variant="ghost" onClick={clearFilters}>
+                Limpar filtros
+              </Button>
+            ) : undefined
+          }
+        />
+      )}
+
+      {status === 'success' && filteredRecipes.length > 0 && (
+        <ul className={styles.grid} aria-label="Lista de receitas">
+          {filteredRecipes.map((recipe) => (
+            <li key={recipe.id}>
+              <RecipeCard
+                recipe={recipe}
+                isFavorite={favorites.has(recipe.id)}
+                onToggleFavorite={toggleFavorite}
+              />
+            </li>
+          ))}
+        </ul>
+      )}
     </section>
   )
 }

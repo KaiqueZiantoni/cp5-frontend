@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { fetchRecipes } from '../services/recipes'
 import type { Recipe } from '../types/recipe'
 
@@ -7,9 +7,12 @@ type RecipesState =
   | { status: 'success'; recipes: Recipe[] }
   | { status: 'error'; recipes: []; message: string }
 
-/** Carrega a lista completa de receitas uma vez, com cancelamento ao desmontar. */
-export function useRecipes(): RecipesState {
-  const [state, setState] = useState<RecipesState>({ status: 'loading', recipes: [] })
+const LOADING: RecipesState = { status: 'loading', recipes: [] }
+
+/** Carrega a lista completa de receitas, com cancelamento ao desmontar e opção de recarregar. */
+export function useRecipes() {
+  const [state, setState] = useState<RecipesState>(LOADING)
+  const [attempt, setAttempt] = useState(0)
 
   useEffect(() => {
     const controller = new AbortController()
@@ -23,7 +26,13 @@ export function useRecipes(): RecipesState {
       })
 
     return () => controller.abort()
+  }, [attempt])
+
+  /** Volta ao estado de carregamento e dispara uma nova tentativa. */
+  const reload = useCallback(() => {
+    setState(LOADING)
+    setAttempt((current) => current + 1)
   }, [])
 
-  return state
+  return { ...state, reload }
 }
