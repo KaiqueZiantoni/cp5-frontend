@@ -1,0 +1,31 @@
+.button {
+  display: inline-grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  background: color-mix(in srgb, white 85%, transparent);
+  color: var(--text-muted);
+  box-shadow: 0 2px 8px rgba(43, 33, 24, 0.18);
+  backdrop-filter: blur(6px);
+  transition: transform 0.15s ease, color 0.15s ease, background-color 0.15s ease;
+}
+
+.button:hover {
+  transform: scale(1.08);
+  color: var(--fav);
+}
+
+.button:active {
+  transform: scale(0.95);
+}
+
+.active {
+  color: var(--fav);
+  background: var(--fav-soft);
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}

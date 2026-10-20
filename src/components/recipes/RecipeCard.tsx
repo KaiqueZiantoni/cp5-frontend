@@ -1,13 +1,16 @@
 import { Link } from 'react-router-dom'
 import type { Recipe } from '../../types/recipe'
 import { formatMinutes, getTotalTime } from '../../utils/time'
+import { FavoriteButton } from './FavoriteButton'
 import styles from './RecipeCard.module.css'
 
 interface RecipeCardProps {
   recipe: Recipe
+  isFavorite: boolean
+  onToggleFavorite: (id: number) => void
 }
 
-export function RecipeCard({ recipe }: RecipeCardProps) {
+export function RecipeCard({ recipe, isFavorite, onToggleFavorite }: RecipeCardProps) {
   const totalTime = getTotalTime(recipe)
 
   return (
@@ -15,6 +18,14 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
       <Link to={`/receitas/${recipe.id}`} className={styles.media}>
         <img src={recipe.image} alt={recipe.name} loading="lazy" width={400} height={300} />
       </Link>
+
+      <div className={styles.favorite}>
+        <FavoriteButton
+          active={isFavorite}
+          recipeName={recipe.name}
+          onToggle={() => onToggleFavorite(recipe.id)}
+        />
+      </div>
 
       <div className={styles.body}>
         <p className={styles.cuisine}>{recipe.cuisine}</p>

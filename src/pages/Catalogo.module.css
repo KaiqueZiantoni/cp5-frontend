@@ -1,7 +1,9 @@
 .pageHeader {
   display: flex;
-  flex-direction: column;
-  gap: 6px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px 24px;
   margin-bottom: 28px;
 }
 
@@ -10,7 +12,29 @@
 }
 
 .subtitle {
+  margin-top: 6px;
   color: var(--text-muted);
+}
+
+.counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--fav-soft);
+  color: var(--fav);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.counterIcon {
+  width: 18px;
+  height: 18px;
+}
+
+.toolbar {
+  margin-bottom: 28px;
 }
 
 .grid {
@@ -20,8 +44,4 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 24px;
-}
-
-.toolbar {
-  margin-bottom: 28px;
 }
