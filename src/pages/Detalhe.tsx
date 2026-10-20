@@ -32,6 +32,14 @@ export function Detalhe() {
 
       {state.status === 'loading' && <DetalheSkeleton />}
 
+      {state.status === 'not-found' && (
+        <StateMessage
+          title="Receita não encontrada"
+          description={`Não existe nenhuma receita com o identificador "${id}". Ela pode ter sido removida ou o endereço está incorreto.`}
+          action={<Button to="/">Voltar ao catálogo</Button>}
+        />
+      )}
+
       {state.status === 'error' && (
         <StateMessage
           tone="error"
