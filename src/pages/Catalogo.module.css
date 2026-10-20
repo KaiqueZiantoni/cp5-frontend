@@ -1,0 +1,23 @@
+.pageHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 28px;
+}
+
+.title {
+  font-size: clamp(1.9rem, 1.4rem + 2vw, 2.8rem);
+}
+
+.subtitle {
+  color: var(--text-muted);
+}
+
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
+}
