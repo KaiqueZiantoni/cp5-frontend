@@ -34,3 +34,27 @@ Silas Oliveira | 571506
 - CSS Modules
 - Deploy na Vercel (`vercel.json` com rewrite para SPA)
 
+## Como rodar
+
+1. `npm install`
+2. `npm run dev`
+
+Outros scripts: `npm run build` (gera `dist/` com checagem de tipos), `npm run preview` e `npm run lint`.
+
+## Estrutura
+
+- `src/components/layout`: Header, Footer, Layout (rotas aninhadas)
+- `src/components/recipes`: RecipeCard, RecipeFilters, FavoriteButton, skeleton
+- `src/components/ui`: Button, StateMessage
+- `src/hooks`: useRecipes, useRecipe
+- `src/pages`: Catalogo, Detalhe, NotFound
+- `src/services`: recipes.ts (fetch e tratamento de 404)
+- `src/types`: Recipe, RecipesResponse
+- `src/utils`: tempo total e rótulos
+
+## Git Flow
+
+- `main` e `develop` desde o primeiro commit; nenhum commit direto na `main`.
+- Features em `feature/*`, integradas na `develop` por Pull Request.
+- Entrega em `release/1.0.0`, mergeada na `main` por PR, com tag `v1.0.0` e Release publicada.
+- Commits no padrão [Conventional Commits](https://www.conventionalcommits.org/pt-br/).
