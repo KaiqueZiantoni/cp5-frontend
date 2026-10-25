@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import type { Recipe } from '../../types/recipe'
-import { formatDifficulty } from '../../utils/labels'
+import { formatDifficulty, formatServings } from '../../utils/labels'
 import { formatMinutes, getTotalTime } from '../../utils/time'
 import { FavoriteButton } from './FavoriteButton'
 import styles from './RecipeCard.module.css'
@@ -40,16 +40,19 @@ export function RecipeCard({ recipe, isFavorite, onToggleFavorite }: RecipeCardP
             {recipe.name}
           </Link>
         </h2>
-        <p className={styles.time}>
-          <svg viewBox="0 0 24 24" aria-hidden="true" className={styles.icon}>
-            <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" strokeWidth="2" />
-            <path d="M12 7v5l3 2" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-          </svg>
-          <span>
-            <span className="sr-only">Tempo total: </span>
-            {formatMinutes(totalTime)}
-          </span>
-        </p>
+        <div className={styles.meta}>
+          <p className={styles.time}>
+            <svg viewBox="0 0 24 24" aria-hidden="true" className={styles.icon}>
+              <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" strokeWidth="2" />
+              <path d="M12 7v5l3 2" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+            <span>
+              <span className="sr-only">Tempo total: </span>
+              {formatMinutes(totalTime)}
+            </span>
+          </p>
+          <p className={styles.servings}>{formatServings(recipe.servings)}</p>
+        </div>
       </div>
     </article>
   )
