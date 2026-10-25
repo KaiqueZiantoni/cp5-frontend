@@ -58,3 +58,7 @@ Outros scripts: `npm run build` (gera `dist/` com checagem de tipos), `npm run p
 - Features em `feature/*`, integradas na `develop` por Pull Request.
 - Entrega em `release/1.0.0`, mergeada na `main` por PR, com tag `v1.0.0` e Release publicada.
 - Commits no padrão [Conventional Commits](https://www.conventionalcommits.org/pt-br/).
+
+## Versão
+
+Versão atual: 1.0.0. Histórico em [CHANGELOG.md](CHANGELOG.md).
