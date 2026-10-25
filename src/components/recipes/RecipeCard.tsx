@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import type { Recipe } from '../../types/recipe'
+import { formatDifficulty } from '../../utils/labels'
 import { formatMinutes, getTotalTime } from '../../utils/time'
 import { FavoriteButton } from './FavoriteButton'
 import styles from './RecipeCard.module.css'
@@ -28,7 +29,12 @@ export function RecipeCard({ recipe, isFavorite, onToggleFavorite }: RecipeCardP
       </div>
 
       <div className={styles.body}>
-        <p className={styles.cuisine}>{recipe.cuisine}</p>
+        <div className={styles.topline}>
+          <p className={styles.cuisine}>{recipe.cuisine}</p>
+          <span className={`${styles.badge} ${styles[recipe.difficulty.toLowerCase()]}`}>
+            {formatDifficulty(recipe.difficulty)}
+          </span>
+        </div>
         <h2 className={styles.title}>
           <Link to={`/receitas/${recipe.id}`} className={styles.titleLink}>
             {recipe.name}
