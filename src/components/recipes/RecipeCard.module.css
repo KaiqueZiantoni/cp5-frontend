@@ -97,3 +97,18 @@
   background: var(--surface-2);
   color: var(--text-muted);
 }
+
+.easy {
+  background: #e3f5e8;
+  color: #1f7a3a;
+}
+
+.medium {
+  background: #fff1d6;
+  color: #9a5b00;
+}
+
+.hard {
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+}
