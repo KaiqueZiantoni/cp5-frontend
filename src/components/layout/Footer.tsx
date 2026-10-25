@@ -1,5 +1,9 @@
 import styles from './Footer.module.css'
 
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
+
 export function Footer() {
   return (
     <footer className={styles.footer}>
@@ -13,6 +17,9 @@ export function Footer() {
             DummyJSON
           </a>
         </p>
+        <button type="button" className={styles.topButton} onClick={scrollToTop}>
+          Voltar ao topo
+        </button>
       </div>
     </footer>
   )
